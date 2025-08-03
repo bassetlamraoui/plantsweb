@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhytoLex - L'Encyclopédie Des Plantes</title>
     
-     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <style>
-          body {
+        body {
             font-family: 'Inter', sans-serif;
             background-color: #fdfdfd;
             scroll-behavior: smooth;
@@ -21,101 +21,151 @@
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
-
-          .hero-section {
+        footer {
+            background-color: #fdfdfd;
+            border-top: 1px solid #1f2937;
+        }
+        .hero-section {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
         }
 
-         .nav-scrolled {
-            background-color: rgba(255, 255, 255, 0.9);
+        /* --- Nav Scroll Styles --- */
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #e5e7eb;
+          
         }
-        
-        .nav-scrolled .nav-link {
-            color: #1f2937; 
+        .nav-scrolled .nav-link, .nav-scrolled .active-nav-link {
+            color: #4b5563; /* text-gray-600 */
         }
-        
+        .nav-scrolled .nav-link:hover {
+            color: #16a34a; /* text-green-600 */
+        }
+        /* Active link style on scroll */
+        .nav-scrolled .active-nav-link {
+            color: #16a34a; /* text-green-600 */
+            font-weight: 600; /* font-semibold */
+            border-bottom: 2px solid #16a34a;
+            padding-bottom: 2px;
+        }
         .nav-scrolled .nav-brand {
              color: #1f2937; 
         }
-
         .nav-scrolled .connexion-btn {
             border-color: #2563eb; 
             color: #2563eb;
         }
-
         .nav-scrolled .connexion-btn:hover {
              background-color: #2563eb;
              color: white;
         }
-        
-        .nav-scrolled .mobile-menu-btn {
+        .nav-scrolled .mobile-menu-btn, .nav-scrolled #theme-toggle {
             color: #1f2937;
         }
-
-
-     
+        
+        /* --- Animations & Cards --- */
         .fade-in {
             animation: fadeIn 1.5s ease-in-out;
         }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-     
         .feature-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
+        /* --- Dark Mode Styles --- */
+        .dark body { background-color: #030712; }
+        .dark .bg-white { background-color:#030712 ; }
+        .dark .text-gray-900, .dark .text-gray-800 { color: #f9fafb; }
+        .dark .text-gray-600 { color: #9ca3af; }
+        .dark .feature-card { background-color: #1f2937; border-color: #374151; }
+        .dark .nav-scrolled {
+            background-color:#1f2937;
+        }
+        .dark .nav-scrolled .nav-link, .dark .nav-scrolled .active-nav-link {
+             color: #d1d5db; /* gray-300 */
+        }
+        .dark .nav-scrolled .nav-link:hover {
+            color: #22c55e; /* green-500 */
+        }
+        .dark .nav-scrolled .active-nav-link {
+            color: #22c55e; /* green-500 */
+            border-bottom-color: #22c55e;
+        }
+        .dark .nav-scrolled .nav-brand, .dark .nav-scrolled .mobile-menu-btn, .dark .nav-scrolled #theme-toggle {
+            color: #f9fafb;
+        }
+        .dark .nav-scrolled .connexion-btn {
+            color: #60a5fa; /* blue-400 */
+            border-color: #60a5fa;
+        }
+        .dark .nav-scrolled .connexion-btn:hover {
+            background-color: #60a5fa;
+            color: #111827;
+        }
+        .dark #mobile-menu { background-color: #1f2937; }
+        .dark #mobile-menu a { color: #d1d5db; }
+        .dark footer { background-color: #1f2937; border-top: 1px solid #ffffff; }
     </style>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
 <body class="text-gray-800">
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 p-4 transition-all duration-300">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-          <a href="#" class="text-2xl font-bold nav-brand text-white" style="font-family: 'Playfair Display', serif;">PhytoLex</a>
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <a href="./index.html" class="text-2xl font-bold nav-brand text-white" style="font-family: 'Playfair Display', serif;">PhytoLex</a>
 
-          <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="nav-link text-white hover:text-gray-300 transition-colors">Accueil</a>
-                <a href="#search" class="nav-link text-white hover:text-gray-300 transition-colors">Recherche</a>
-                <a href="#discover" class="nav-link text-white hover:text-gray-300 transition-colors">Découvrir</a>
-                <a href="#" class="nav-link text-white hover:text-gray-300 transition-colors">À Propos</a>
-                <a href="#" class="nav-link text-white hover:text-gray-300 transition-colors">Feedback</a>
-                <a href="./login.html" class="connexion-btn border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-gray-900 transition-all">Connexion</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="./index.html" class="active-nav-link text-white font-semibold transition-colors duration-300">Accueil</a>
+                    <a href="./Recherche.html" class="nav-link text-white hover:text-gray-300 transition-colors duration-300">Recherche</a>
+                    <a href="#discover" class="nav-link text-white hover:text-gray-300 transition-colors duration-300">Découvrir</a>
+                    <a href="./À Propos.html" class="nav-link text-white hover:text-gray-300 transition-colors duration-300">À Propos</a>
+                    <a href="#" class="nav-link text-white hover:text-gray-300 transition-colors duration-300">Feedback</a>
+                    <a href="./login.html" class="connexion-btn border-2 border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-gray-900 transition-all">Connexion</a>
+                    <button id="theme-toggle" class="p-2 rounded-full text-white hover:bg-white/20 focus:outline-none">
+                        <svg id="theme-toggle-sun" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-toggle-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                         <button id="theme-toggle-mobile" class="p-2 rounded-full text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 focus:outline-none">
+                        <svg id="theme-toggle-sun" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-toggle-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="mobile-menu-button" class="mobile-menu-btn text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
 
-          <div class="md:hidden">
-                <button id="mobile-menu-button" class="mobile-menu-btn text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+            <div id="mobile-menu" class="hidden md:hidden py-2 mt-2 bg-white rounded-lg shadow-xl">
+                <a href="./index.html" class="block text-green-600 font-semibold px-4 py-2 hover:bg-gray-100">Accueil</a>
+                <a href="./Recherche.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Recherche</a>
+                <a href="#discover" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Découvrir</a>
+                <a href="./À Propos.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">À Propos</a>
+                <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Feedback</a>
+                <a href="./login.html" class="block text-blue-600 font-bold px-4 py-2 hover:bg-gray-100">Connexion</a>
             </div>
-        </div>
-      <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-lg shadow-xl">
-            <a href="#" class="block text-gray-700 px-4 py-3 hover:bg-gray-100">Accueil</a>
-            <a href="#search" class="block text-gray-700 px-4 py-3 hover:bg-gray-100">Recherche</a>
-            <a href="#discover" class="block text-gray-700 px-4 py-3 hover:bg-gray-100">Découvrir</a>
-            <a href="#" class="block text-gray-700 px-4 py-3 hover:bg-gray-100">À Propos</a>
-            <a href="#" class="block text-gray-700 px-4 py-3 hover:bg-gray-100">Feedback</a>
-            <a href="#" class="block text-blue-600 font-bold px-4 py-3 hover:bg-gray-100">Connexion</a>
         </div>
     </nav>
-
 
     <section class="hero-section h-screen flex flex-col items-center justify-center text-white p-4">
         <div class="text-center fade-in">
@@ -130,42 +180,38 @@
         </div>
     </section>
 
-  <main class="py-16 md:py-24 px-4 bg-white">
+    <main class="py-16 md:py-24 px-4 bg-white">
         <div class="max-w-6xl mx-auto">
-
-          <div class="text-center max-w-3xl mx-auto mb-24">
+            <div class="text-center max-w-3xl mx-auto mb-24">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Le monde des plantes à portée de main.</h2>
                 <p class="mt-4 text-lg text-gray-600">
                     PhytoLex est une ressource vivante, conçue pour les chercheurs, les étudiants, les horticulteurs et tous les passionnés de la nature.
                 </p>
             </div>
 
-         <div id="search" class="max-w-2xl mx-auto mb-24 scroll-mt-24 text-center">
+            <div id="search" class="max-w-2xl mx-auto mb-24 scroll-mt-24 text-center">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Que Recherchez Vous?</h2>
-           
-                <a href="#" class="inline-block bg-green-600 text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg">
+                <a href="./Recherche.html" class="inline-block bg-green-600 text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-green-700 transition-transform transform hover:scale-105 shadow-lg">
                     Explorez La Base De Données
                 </a>
             </div>
 
             <div id="discover" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 scroll-mt-24">
-                 <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800">
                     <img src="https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?q=80&w=2070&auto=format&fit=crop" alt="World map" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold text-gray-900">Collections Régionales</h3>
                         <p class="mt-2 text-gray-600">Parcourez les collections par continent et découvrez la flore endémique de chaque région du globe.</p>
                     </div>
                 </div>
-
-                 <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800">
                     <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=2076&auto=format&fit=crop" alt="Medicinal herbs" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold text-gray-900">Plantes par Usage</h3>
                         <p class="mt-2 text-gray-600">Explorez les plantes par leurs usages : médicinales, culinaires, ornementales, et bien plus encore.</p>
                     </div>
                 </div>
-
-                 <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800">
                     <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=2076&auto=format&fit=crop" alt="Open book" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-bold text-gray-900">Recherches Botaniques</h3>
@@ -176,37 +222,69 @@
         </div>
     </main>
 
-    <footer class="bg-gray-800 text-white py-12 px-4">
+    <footer class=" text-gray-900 py-4 px-4 border-t border-gray-700">
         <div class="max-w-6xl mx-auto text-center">
             <p class="text-2xl font-semibold" style="font-family: 'Playfair Display', serif;">PhytoLex</p>
             <p class="mt-2 text-gray-400">&copy; 2024 L'Encyclopédie Des Plantes. Tous droits réservés.</p>
-            <div class="mt-4 flex justify-center space-x-6">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">À Propos</a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">Conditions d'utilisation</a>
-            </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbar = document.getElementById('navbar');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
+  document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('navbar');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-scrolled');
-                } else {
-                    navbar.classList.remove('nav-scrolled');
-                }
-            });
+    const themeToggleBtns = [
+        document.getElementById('theme-toggle'),
+        document.getElementById('theme-toggle-mobile')
+    ];
 
-             mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+    const themeToggleSuns = document.querySelectorAll('#theme-toggle-sun');
+    const themeToggleMoons = document.querySelectorAll('#theme-toggle-moon');
+
+    const setTheme = (isDark) => {
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            themeToggleSuns.forEach(sun => sun.classList.add('hidden'));
+            themeToggleMoons.forEach(moon => moon.classList.remove('hidden'));
+            localStorage.setItem('color-theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleSuns.forEach(sun => sun.classList.remove('hidden'));
+            themeToggleMoons.forEach(moon => moon.classList.add('hidden'));
+            localStorage.setItem('color-theme', 'light');
+        }
+    };
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
-    </script>
+    }
 
+    themeToggleBtns.forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', () => {
+                setTheme(!document.documentElement.classList.contains('dark'));
+                btn.blur();
+            });
+        }
+    });
+
+    setTheme(localStorage.getItem('color-theme') === 'dark');
+
+    // ✅ Add scroll effect for navbar
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('nav-scrolled');
+        } else {
+            navbar.classList.remove('nav-scrolled');
+        }
+    });
+});
+
+
+    </script>
 </body>
 </html>

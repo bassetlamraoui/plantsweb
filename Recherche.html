@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhytoLex - Recherche</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .plant-card {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .plant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .az-filter a {
+            transition: background-color 0.2s, color 0.2s;
+        }
+        
+        .nav-scrolled {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+footer {
+    background-color: #fdfdfd;
+    border-top: 1px solid #000000;
+}
+
+        .dark body {
+            background-color: #030712;
+        }
+        .dark .plant-card {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        .dark .text-gray-900 {
+            color: #f9fafb;
+        }
+        .dark .text-gray-800 {
+            color: #f9fafb;
+        }
+        .dark .text-gray-700 {
+            color: #d1d5db;
+        }
+        .dark .text-gray-600 {
+            color: #9ca3af;
+        }
+       
+        .dark .bg-white {
+            background-color: #1f2937;
+        }
+        .dark .shadow-md {
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+        .dark .nav-scrolled {
+            background-color: rgba(31, 41, 55, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .dark .az-filter a {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        .dark .az-filter a:hover {
+            background-color: #16a34a;
+        }
+        .dark input {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        .dark footer {
+            background-color: #111827;
+            border-top: 1px solid #ffffff;
+        }
+        .plant-image {
+    border: 4px solid #111827; /* Light mode border */
+    border-radius: 9999px; /* Full circle */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 8rem; /* w-32 */
+    height: 8rem; /* h-32 */
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.dark .plant-image {
+    border-color: #ffffff; /* Dark mode border */
+}
+
+    </style>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="text-gray-800">
+
+    <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="./index.html" class="text-2xl font-bold text-gray-800" style="font-family: 'Playfair Display', serif;">PhytoLex</a>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="./index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a>
+                    <a href="./Recherche.html" class="text-green-600 font-semibold border-b-2 border-green-600">Recherche</a>
+                    <a href="./index.html#discover" class="text-gray-600 hover:text-green-600 transition-colors">Découvrir</a>
+                    <a href="./À Propos.html" class="text-gray-600 hover:text-green-600 transition-colors">À Propos</a>
+                    <a href="./feedback.html" class="text-gray-600 hover:text-green-600 transition-colors">Feedback</a>
+                    <a href="./login.html" class="border-2 border-blue-600 text-blue-600 px-4 py-2 rounded-full hover:bg-blue-600 hover:text-white transition-all dark:text-blue-400 dark:border-blue-400 dark:hover:bg-blue-400 dark:hover:text-white">Connexion</a>
+                     <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 focus:outline-none">
+                        <svg id="theme-toggle-sun" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-toggle-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <svg id="theme-toggle-sun-mobile" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-toggle-moon-mobile" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="mobile-menu-button" class="text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden py-2">
+                <a href="./index.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Accueil</a>
+                <a href="./Recherche.html" class="block text-green-600 font-semibold px-4 py-2 hover:bg-gray-100">Recherche</a>
+                <a href="./index.html#discover" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Découvrir</a>
+                <a href="./À Propos.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">À Propos</a>
+                <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Feedback</a>
+                <a href="./login.html" class="block text-blue-600 font-bold px-4 py-2 hover:bg-gray-100">Connexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+
+            <header class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Base de Données des Plantes</h1>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                    Utilisez la barre de recherche ou les filtres pour trouver le spécimen que vous cherchez.
+                </p>
+                <div class="mt-8 max-w-2xl mx-auto">
+                    <input 
+                        type="text" 
+                        placeholder="Rechercher par nom, famille, etc..." 
+                        class="w-full py-4 px-6 text-lg bg-white border-2 border-gray-300 rounded-full focus:outline-none focus:ring-4 focus:ring-green-200 focus:border-green-500 transition-shadow duration-300"
+                    >
+                </div>
+            </header>
+
+            <div class="flex justify-center flex-wrap gap-2 mb-12 az-filter">
+                <script>
+                    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+                    alphabet.forEach(letter => {
+                        document.write(`<a href="#" class="w-10 h-10 flex items-center justify-center font-bold text-gray-600 bg-white border rounded-full hover:bg-green-600 hover:text-white">${letter}</a>`);
+                    });
+                </script>
+            </div>
+
+            <div class="space-y-8">
+                
+                <div class="plant-card rounded-2xl p-6 md:flex md:items-start md:space-x-8">
+                    <div class="flex-shrink-0 mb-6 md:mb-0">
+  <img 
+  src="./viewGalleryPwdKokia.jpg" 
+  alt="Image de Rosa gallica"
+  class="plant-image"
+/>
+
+    </div>
+                    <div class="flex-1">
+                        <h3 class="text-3xl font-bold text-gray-900">Rosa gallica</h3>
+                        <div class="mt-4 space-y-2 text-gray-700">
+                            <p><strong>Nom Commun:</strong> Rosier de France</p>
+                            <p><strong>Nom Vernaculaire:</strong> Rosier de Provins</p>
+                            <p><strong>Famille:</strong> Rosaceae</p>
+                            <p><strong>Classification Botanique:</strong> Rosales, Magnoliopsida, Plantae</p>
+                        </div>
+                        <p class="mt-4 text-gray-600 leading-relaxed">
+                            Description: Le Rosier de France est une espèce de plantes à fleurs de la famille des Rosaceae, originaire du sud et du centre de l'Europe, à l'est jusqu'à la Turquie et au Caucase. C'est un arbuste à feuilles caduques.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="plant-card rounded-2xl p-6 md:flex md:items-start md:space-x-8">
+                    <div class="flex-shrink-0 mb-6 md:mb-0">
+                  <img 
+  src="./viewGalleryPwdKokia.jpg" 
+  alt="Image de  Lavande vraie"
+  class="plant-image"
+/>
+        </div>
+                    <div class="flex-1">
+                        <h3 class="text-3xl font-bold text-gray-900">Lavandula angustifolia</h3>
+                        <div class="mt-4 space-y-2 text-gray-700">
+                            <p><strong>Nom Commun:</strong> Lavande vraie</p>
+                            <p><strong>Nom Vernaculaire:</strong> Lavande officinale</p>
+                            <p><strong>Famille:</strong> Lamiaceae</p>
+                            <p><strong>Classification Botanique:</strong> Lamiales, Magnoliopsida, Plantae</p>
+                        </div>
+                        <p class="mt-4 text-gray-600 leading-relaxed">
+                            Description: La lavande vraie est un arbrisseau à fleurs mauves ou violettes, dont l'odeur est très appréciée. Elle est largement cultivée pour son huile essentielle utilisée en parfumerie et en aromathérapie.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+   <footer class=" text-gray-900 py-4 px-4 border-t border-gray-700">
+    <div class="max-w-6xl mx-auto text-center">
+        <p class="text-2xl font-semibold" style="font-family: 'Playfair Display', serif;">PhytoLex</p>
+        <p class="mt-2 text-gray-400">&copy; 2024 L'Encyclopédie Des Plantes. Tous droits réservés.</p>
+    
+    </div>
+</footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            const themeToggleBtns = [
+                document.getElementById('theme-toggle'),
+                document.getElementById('theme-toggle-mobile')
+            ];
+            
+            const sunIcons = [
+                document.getElementById('theme-toggle-sun'),
+                document.getElementById('theme-toggle-sun-mobile')
+            ];
+
+            const moonIcons = [
+                document.getElementById('theme-toggle-moon'),
+                document.getElementById('theme-toggle-moon-mobile')
+            ];
+
+            const setTheme = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    sunIcons.forEach(icon => icon && icon.classList.add('hidden'));
+                    moonIcons.forEach(icon => icon && icon.classList.remove('hidden'));
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    sunIcons.forEach(icon => icon && icon.classList.remove('hidden'));
+                    moonIcons.forEach(icon => icon && icon.classList.add('hidden'));
+                    localStorage.setItem('color-theme', 'light');
+                }
+            };
+
+            mobileMenuButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            themeToggleBtns.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        setTheme(!document.documentElement.classList.contains('dark'));
+                    });
+                }
+            });
+
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnMenuButton = mobileMenuButton.contains(event.target);
+
+                if (!isClickInsideMenu && !isClickOnMenuButton) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            setTheme(localStorage.getItem('color-theme') === 'dark');
+        });
+    </script>
+
+</body>
+</html>

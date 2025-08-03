@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhytoLex - À Propos</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+footer {
+    background-color: #fdfdfd;
+    border-top: 1px solid #000000;
+}
+
+        .content-section p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-scrolled {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Mode Styles */
+        .dark body {
+            background-color: #030712;
+        }
+        .dark .bg-white {
+            background-color: #1f2937;
+        }
+
+        .dark .text-gray-900 {
+            color: #f9fafb;
+        }
+        .dark .text-gray-800 {
+            color: #f9fafb;
+        }
+        .dark .text-gray-700 {
+            color: #d1d5db;
+        }
+        .dark .text-gray-600 {
+            color: #9ca3af;
+        }
+        .dark .text-gray-500 {
+            color: #6b7280;
+        }
+        .dark .shadow-lg {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+        }
+        .dark .border-gray-200 {
+            border-color: #374151;
+        }
+        .dark .nav-scrolled {
+            background-color: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .dark footer {
+            background-color: #111827;
+            border-top: 1px solid #ffffff;
+        }
+        .dark #mobile-menu {
+            background-color: #1f2937;
+        }
+         .dark #mobile-menu a {
+            color: #d1d5db;
+        }
+    </style>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="text-gray-800">
+
+   <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="./index.html" class="text-2xl font-bold text-gray-800" style="font-family: 'Playfair Display', serif;">PhytoLex</a>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="./index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a>
+                    <a href="./Recherche.html" class="text-gray-600 hover:text-green-600 transition-colors">Recherche</a>
+                    <a href="#discover" class="text-green-600 font-semibold border-b-2 border-green-600">Découvrir</a>
+                    <a href="./À Propos.html" class="text-gray-600 hover:text-green-600 transition-colors">À Propos</a>
+                    <a href="#" class="text-gray-600 hover:text-green-600 transition-colors">Feedback</a>
+                    <a href="./login.html" class="border-2 border-blue-600 text-blue-600 px-4 py-2 rounded-full hover:bg-blue-600 hover:text-white transition-all dark:text-blue-400 dark:border-blue-400 dark:hover:bg-blue-400 dark:hover:text-white">Connexion</a>
+                     <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 focus:outline-none">
+                        <svg id="theme-toggle-sun" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-toggle-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-full text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <svg id="theme-toggle-sun-mobile" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-toggle-moon-mobile" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="mobile-menu-button" class="text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden py-2">
+                <a href="./index.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Accueil</a>
+                <a href="./Recherche.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Recherche</a>
+                <a href="#discover" class="block text-green-600 font-semibold px-4 py-2 hover:bg-gray-100">Découvrir</a>
+                <a href="./À Propos.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">À Propos</a>
+                <a href="./feedback.html" class="block text-gray-700 px-4 py-2 hover:bg-gray-100">Feedback</a>
+                <a href="./login.html" class="block text-blue-600 font-bold px-4 py-2 hover:bg-gray-100">Connexion</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+
+            <header class="text-center mb-12">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900">À Propos de PhytoLex</h1>
+                <p class="mt-4 text-xl text-gray-500">L'Encyclopédie Des Plantes</p>
+            </header>
+
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-200">
+                <div class="md:grid md:grid-cols-3 md:gap-12">
+                    <div class="md:col-span-1 mb-8 md:mb-0">
+                        <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1974&auto=format&fit=crop" alt="Feuilles de monstera" class="rounded-xl object-cover w-full h-full shadow-md">
+                    </div>
+                    <div class="md:col-span-2 content-section text-lg text-gray-700 leading-relaxed">
+                        <p>
+                            <strong>PhytoLex</strong> est une base de données en ligne de specimens de plantes numérisés. C'est une grande liste des specimens de plantes connues.
+                        </p>
+                        <p>
+                            Notre application est aussi équipée d'un puissant moteur de recherche avec lequel vous pouvez trouver n'importe quelle plante dans notre base de données en ecrivant le nom commun, le nom botanique, l'espèce, la famille...
+                        </p>
+                        <p>
+                            <strong>PhytoLex</strong> fournit des informations précises, standardisées et vérifiées sur les plantes avec leurs photos et une description détaillée. Les informations incorrectes peuvent êtres signalées par l'utilisateur dans la section 'Feedback'.
+                        </p>
+                        <p>
+                            Les utilisateurs peuvent également parcourir notre vaste collection de plantes dans la section "Découvrir".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+<footer class="bg-white text-gray-900 py-4 px-4 border-t border-gray-700">
+    <div class="max-w-6xl mx-auto text-center">
+        <p class="text-2xl font-semibold" style="font-family: 'Playfair Display', serif;">PhytoLex</p>
+        <p class="mt-2 text-gray-400">&copy; 2024 L'Encyclopédie Des Plantes. Tous droits réservés.</p>
+    
+    </div>
+</footer>
+
+
+    <script>
+ document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('navbar');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    const themeToggleBtns = [
+        document.getElementById('theme-toggle'),
+        document.getElementById('theme-toggle-mobile')
+    ];
+
+    const themeToggleSuns = document.querySelectorAll('#theme-toggle-sun');
+    const themeToggleMoons = document.querySelectorAll('#theme-toggle-moon');
+
+    const setTheme = (isDark) => {
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            themeToggleSuns.forEach(sun => sun.classList.add('hidden'));
+            themeToggleMoons.forEach(moon => moon.classList.remove('hidden'));
+            localStorage.setItem('color-theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleSuns.forEach(sun => sun.classList.remove('hidden'));
+            themeToggleMoons.forEach(moon => moon.classList.add('hidden'));
+            localStorage.setItem('color-theme', 'light');
+        }
+    };
+
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    themeToggleBtns.forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', () => {
+                setTheme(!document.documentElement.classList.contains('dark'));
+                btn.blur();
+            });
+        }
+    });
+
+    setTheme(localStorage.getItem('color-theme') === 'dark');
+
+    // ✅ Add scroll effect for navbar
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('nav-scrolled');
+        } else {
+            navbar.classList.remove('nav-scrolled');
+        }
+    });
+});
+
+    </script>
+
+</body>
+</html>
