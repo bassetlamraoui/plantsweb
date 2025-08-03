@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhytoLex - Connexion</title>
+    
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+       body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+          .auth-background {
+            background-image: linear-gradient(to top, rgba(23, 37, 84, 0.8), rgba(23, 37, 84, 0.8)), url('https://images.unsplash.com/photo-1459411552784-8499ab6a7c82?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+           .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="auth-background min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full">
+          <div class="text-center mb-4">
+            <a href="#" class="text-white hover:text-gray-200 transition-colors">&larr; Retour à l'accueil</a>
+        </div>
+
+        <div class="form-container rounded-2xl shadow-2xl p-8 md:p-12">
+
+            <div id="login-form">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900">Connexion</h2>
+                    <p class="text-gray-600 mt-2">Heureux de vous revoir!</p>
+                </div>
+                <form>
+                    <div class="mb-4">
+                        <label for="login-email" class="block text-gray-700 mb-2">Email ou Nom d'utilisateur</label>
+                        <input type="text" id="login-email" class="w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div class="mb-6">
+                        <label for="login-password" class="block text-gray-700 mb-2">Mot de passe</label>
+                        <input type="password" id="login-password" class="w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <a href="#" class="text-sm text-blue-600 hover:underline mt-2 block text-right">Mot de passe oublié?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition-colors duration-300">
+                        Se connecter
+                    </button>
+                </form>
+                <p class="text-center text-gray-600 mt-8">
+                   Besoin d'un compte? <a href="./sign up.html" class="font-bold text-blue-600 hover:underline">Inscrivez-vous ici</a>.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
